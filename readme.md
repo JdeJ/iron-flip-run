@@ -37,7 +37,7 @@ Html5 __Canvas__ and Vanilla __Javascript__
 * Create player on line
 * Move player
   * Click on any button to move player over or under the line.
-* Create obstacles
+* Create obstacles over and under the line
 * Check collision
 * If collision -> Game Over -> Show Game Over Screen
 
@@ -83,6 +83,8 @@ var game = new Game({
     this.columns,
     ctx: ctx,
     backgroundcolor = ['xxx','xxx','xxx'],
+    this.obstacles,
+    this.player
   });
 
 game.init();
