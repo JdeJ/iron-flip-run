@@ -44,6 +44,7 @@ Html5 __Canvas__ and Vanilla __Javascript__
 * * *
 
 ## BACK LOG
+### Rotate canvas
 ### Score
 * Run counter and store score on game over
 ### High score
@@ -112,4 +113,6 @@ moveForward();
 ````
 
 ## Links
-[Iron flip run Trello Board](https://trello.com/b/jvP5IE61/iron-flip-run)
+[Iron flip run Trello](https://trello.com/b/jvP5IE61/iron-flip-run)
+
+[Github](https://github.com/annaclf/iron-flip-run)
