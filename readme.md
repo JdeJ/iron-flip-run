@@ -53,7 +53,7 @@ Html5 __Canvas__ and Vanilla __Javascript__
 * Add high score button to Start Screen
 ### Music
 * Add background music to game
-* Add music on and off to Start screen to see latest highest score.
+* Add music on and off button to Start screen.
 ### Player colors
 * Create Color Screen
   * Let user choose color of player with color buttons
@@ -61,7 +61,7 @@ Html5 __Canvas__ and Vanilla __Javascript__
 * Change color of player when playing
 
 ### Levels
-* Check score and move to level
+* Check score and increase level.
 
 * * *
 
@@ -78,7 +78,14 @@ destroyStartScreen();
 destroyGameScreen();
 destroyGameOverScreen();
 
-Game.init();
+var game = new Game({
+    this.rows,
+    this.columns,
+    ctx: ctx,
+    backgroundcolor = ['xxx','xxx','xxx'],
+  });
+
+game.init();
 
 ````
 __Game.js__
@@ -97,7 +104,11 @@ garbageCollector;
 __Player.js__
 
 ````
-function Player(){};
+function Player(){
+  this.width;
+  this.height;
+  this.color;
+};
 Player.move();
 ````
 
