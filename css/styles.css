@@ -1,0 +1,90 @@
+body{
+  background:grey;
+  margin: 0;
+  padding: 0;
+  font-family: 'VT323', monospace;
+  color: #000;
+}
+a{
+  color: #000;
+  text-decoration: none;
+}
+a:hover{
+  opacity: 0.7;
+}
+.container{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-wrapper-game .canvas-wrapper,#game-wrapper-start .start-screen-wrapper, #game-wrapper-gameover{
+  overflow: hidden;
+  width: 568px;
+  height:320px;
+  align-self: center;
+}
+.start-screen-wrapper{
+  background: #fff;
+  border:1px solid black;
+}
+.content-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+#loading {
+}
+#game-board{
+  margin-left: -100px;
+}
+
+/*Define rotate classes for different animations*/
+#game-board.rotate-fw{
+  -webkit-animation: rotation-fw 4s infinite linear;
+}
+#game-board.rotate-bw{
+  -webkit-animation: rotation-bw 3s infinite linear;
+}
+#game-board.rotate-crazy{
+  -webkit-animation: rotation-fw-bw-fw-bw 10s linear;
+
+}
+
+
+/*Define rotate animations for canvas to rotate*/
+
+@-webkit-keyframes rotation-fw-bw-fw-bw {
+  0% {
+      -webkit-transform: rotate(0deg);
+  }
+  25%{
+      -webkit-transform: rotate(45deg);
+  }
+  30%{
+    -webkit-transform: rotate(45deg);
+  }
+  55%{
+    -webkit-transform: rotate(60deg);
+  }
+  70%{
+    -webkit-transform: rotate(60deg);
+  }
+  80%{
+    -webkit-transform: rotate(40deg);
+  }
+  100% {
+      -webkit-transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes rotation-bw {
+  0% {
+      -webkit-transform: rotate(100deg);
+  }
+  100% {
+      -webkit-transform: rotate(0deg);
+  }
+}
