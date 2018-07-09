@@ -31,6 +31,7 @@ button:hover{
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 #general-wrapper > .overlay{
   width: 100%;
@@ -51,9 +52,11 @@ button:hover{
 }
 #game-states, #game-wrapper .start-screen-wrapper{
   overflow: hidden;
-  width: 600px;
+  width: 650px;
   height:350px;
   align-self: center;
+  margin: 0 auto;
+  max-width: 100%;
 }
 .start-screen-wrapper,.gameover-screen-wrapper{
   background: #fff;
@@ -68,7 +71,7 @@ button:hover{
 #loading {
 }
 #game-board{
-  margin-left: -100px;
+  margin-left: -75px;
 }
 
 /*Define rotate classes for different animations*/

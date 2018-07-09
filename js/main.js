@@ -52,11 +52,9 @@ function initGame () {
     columns: canvas.width / 10,
     ctx: ctx,
     bgColor : '#00ffcc',
-    player : new Player(),
+    obstacle : new Obstacle(),
   }
   game = new Game(options);
-  //setTimeout(gameOver,5000);
-  game.init();
 }
 
 function createGameoverScreen () {
