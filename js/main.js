@@ -12,7 +12,7 @@ var gameSection = document.createElement('section');
 gameSection.setAttribute('id','game-wrapper');
 gameSection.innerHTML = `<div class="container">
   <div class="canvas-wrapper">
-      <canvas id="game-board" width="750" height="350"></canvas>
+      <canvas id="game-board" width="850" height="350"></canvas>
   </div>
 </div>`;
 var gameOverSection = document.createElement('section');

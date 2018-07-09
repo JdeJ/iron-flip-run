@@ -2,8 +2,7 @@ function Obstacle(canvas,ctx){
   this.canvas = canvas;
   this.ctx = ctx;
   this.positionY = this.randomPosition();
-  this.positionX = 700;
-  this.intervalId = undefined;
+  this.positionX = 800;
   this.speed = 10;
 }
 
@@ -22,6 +21,7 @@ Obstacle.prototype.draw = function (obstacle) {
       this.ctx.fillRect(obstacle.positionX,this.canvas.height/7*4-5,40,40);
     }
 }
+
 // Obstacle.prototype.move = function () {
 //   if(!this.intervalId){
 //     this.intervalId = setInterval(this._moveObstacles.bind(this),100);

@@ -50,7 +50,7 @@ button:hover{
   opacity: 0;
   left:-100%;
 }
-#game-states, #game-wrapper .start-screen-wrapper{
+#game-states, #game-wrapper .start-screen-wrapper,.gameover-screen-wrapper{
   overflow: hidden;
   width: 650px;
   height:350px;
@@ -71,7 +71,7 @@ button:hover{
 #loading {
 }
 #game-board{
-  margin-left: -75px;
+  margin-left: -100px;
 }
 
 /*Define rotate classes for different animations*/

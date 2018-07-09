@@ -4,11 +4,13 @@ function Game(options){
   this.columns = options.columns;
   this.ctx = options.ctx;
   this.bgColor = options.bgColor;
-  this.margin = 65;
+  this.margin = 100;
   this.player = new Player(this.canvas,this.ctx);
   this.obstaclesArr = [];
   this.obstacleInterval = undefined;
   this.obstacle = options.obstacle;
+  this.intervalGame = undefined;
+  this.collitionDetected = false;
   this.init();
 }
 
@@ -36,12 +38,13 @@ Game.prototype._controlFlip = function () {
 Game.prototype._drawObstacles = function () {
   this.obstaclesArr.forEach(function(obstacle){
     obstacle.draw(obstacle);
+    this._obstacleCollidesWithPlayer(obstacle,this.player);
   }.bind(this));
 }
 Game.prototype._moveObstacles = function () {
   this.obstaclesArr.forEach(function(obstacle){
     obstacle.positionX-=obstacle.speed;
-  });
+  }.bind(this));
 }
 Game.prototype._createObstaclesInterval = function () {
     this.obstacleInterval = setInterval(this._createObstacle.bind(this),400);
@@ -57,8 +60,21 @@ Game.prototype._removeObstacle = function () {
       this.obstaclesArr.shift();
     }
   }.bind(this));
-    
 }
+
+Game.prototype._obstacleCollidesWithPlayer = function(obstacle,player){
+  if(obstacle.positionX === player.playerPositionX && obstacle.positionY === player.playerPositionY){    
+    this.collitionDetected = true;
+  }
+}
+
+Game.prototype.stop = function () {
+  if (this.intervalGame) {
+    clearInterval(this.intervalGame)
+    this.intervalGame = undefined;
+  }
+}
+
 
 Game.prototype._doFrame = function () {
   this._drawBackground();
@@ -67,8 +83,13 @@ Game.prototype._doFrame = function () {
   this._drawObstacles();
   this._removeObstacle();
   this._controlFlip();
-
-  this.intervalGame = window.requestAnimationFrame(this._doFrame.bind(this));
+  if(this.collitionDetected){
+    this.stop();
+    gameOver();
+  }
+  else{
+    this.intervalGame = window.requestAnimationFrame(this._doFrame.bind(this));
+  }
 }
 
 Game.prototype.init = function () {
