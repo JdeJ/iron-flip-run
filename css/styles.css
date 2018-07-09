@@ -5,12 +5,15 @@ body{
   font-family: 'VT323', monospace;
   color: #000;
 }
-a{
+button{
   color: #000;
   text-decoration: none;
+  font-family: 'VT323', monospace;
+  border: none;
 }
-a:hover{
+button:hover{
   opacity: 0.7;
+  cursor: pointer;
 }
 .container{
   height: 100vh;
@@ -19,13 +22,16 @@ a:hover{
   align-items: center;
 }
 
-#game-wrapper-game .canvas-wrapper,#game-wrapper-start .start-screen-wrapper, #game-wrapper-gameover{
+#game-wrapper-game .canvas-wrapper,#game-wrapper-start .start-screen-wrapper, #game-wrapper-gameover .gameover-screen-wrapper{
   overflow: hidden;
   width: 568px;
   height:320px;
   align-self: center;
 }
-.start-screen-wrapper{
+.canvas-wrapper{
+  border: 1px solid black;
+}
+.start-screen-wrapper,.gameover-screen-wrapper{
   background: #fff;
   border:1px solid black;
 }
