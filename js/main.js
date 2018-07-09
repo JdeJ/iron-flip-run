@@ -1,23 +1,22 @@
-var generalWrapper = document.getElementById('general-wrapper');
+var generalWrapper = document.getElementById('game-states');
+var overlay = document.querySelector('.overlay');
 var startSection = document.createElement('section');
-  startSection.setAttribute('id','game-wrapper-start');
-  startSection.innerHTML = `<div class="container">
-    <div class="start-screen-wrapper">
-      <div class="content-wrapper">
-          <h1>Iron Flip Run</h1>
-          <button class="play-btn">Play</button>
-      </div>
+  startSection.setAttribute('id','game-wrapper');
+  startSection.innerHTML = `<div class="start-screen-wrapper">
+    <div class="content-wrapper">
+        <h1>Iron Flip Run</h1>
+        <button class="play-btn">Play</button>
     </div>
   </div>`;
 var gameSection = document.createElement('section');
-gameSection.setAttribute('id','game-wrapper-game');
+gameSection.setAttribute('id','game-wrapper');
 gameSection.innerHTML = `<div class="container">
   <div class="canvas-wrapper">
-      <canvas id="game-board" width="768" height="320"></canvas>
+      <canvas id="game-board" width="750" height="350"></canvas>
   </div>
 </div>`;
 var gameOverSection = document.createElement('section');
-gameOverSection.setAttribute('id','game-wrapper-gameover');
+gameOverSection.setAttribute('id','game-wrapper');
 gameOverSection.innerHTML = `<div class="container">
   <div class="gameover-screen-wrapper">
     <div class="content-wrapper">
@@ -31,6 +30,7 @@ var playBtn = null;
 var goToStartBtn = null;
 var canvas = null;
 var ctx = null;
+var game = null;
 
 function createStartScreen () {
   generalWrapper.prepend(startSection);
@@ -41,12 +41,22 @@ function createStartScreen () {
 //createStartScreen();
 function createGameScreen () { 
   generalWrapper.prepend(gameSection);
-  initGameCanvas();
+  initGame();
 }
-function initGameCanvas () {
+function initGame () {
   canvas = document.getElementById('game-board');
   ctx = canvas.getContext('2d');
-  setTimeout(gameOver,5000);
+  options = {
+    canvas : canvas,
+    rows: canvas.height / 7,
+    columns: canvas.width / 10,
+    ctx: ctx,
+    bgColor : '#00ffcc',
+    player : new Player(),
+  }
+  game = new Game(options);
+  //setTimeout(gameOver,5000);
+  game.init();
 }
 
 function createGameoverScreen () {
@@ -59,6 +69,10 @@ function createGameoverScreen () {
 }
 
 function clearContent () {
+  // overlay.classList.toggle('fade-out');
+  // setTimeout(function(){
+  //   overlay.classList.toggle('fade-out');
+  // },1000);
   generalWrapper.innerHTML = "";
 }
 
@@ -80,5 +94,6 @@ function gameOver () {
 }
 
 window.onload = function() {
-  createGameoverScreen();
+  //overlay.classList.toggle('fade-out');
+  createStartScreen();
 };
