@@ -5,7 +5,7 @@ function Game(options){
   this.ctx = options.ctx;
   this.bgColor = options.bgColor;
   this.margin = 65;
-  this.player = new Player();
+  this.player = new Player(this.canvas,this.ctx);
   this.obstaclesArr = [];
   this.obstacleInterval = undefined;
   this.obstacle = options.obstacle;
@@ -27,16 +27,6 @@ Game.prototype._drawBackground = function () {
   }
 }
 
-Game.prototype._drawPlayer = function () {
-  this.ctx.fillStyle = this.player.color;
-  if(this.player.playerPosition === "over"){
-    this.ctx.fillRect(200,this.canvas.height/7*2+15,40,40);
-  }
-  else{
-    this.ctx.fillRect(200,this.canvas.height/7*4-5,40,40);
-  }
-}
-
 Game.prototype._controlFlip = function () {
   document.onkeydown = function(){
     this.player.flip();
@@ -45,13 +35,7 @@ Game.prototype._controlFlip = function () {
 
 Game.prototype._drawObstacles = function () {
   this.obstaclesArr.forEach(function(obstacle){
-    this.ctx.fillStyle = "#000";
-    if(obstacle.positionY === "over"){
-      this.ctx.fillRect(obstacle.positionX,this.canvas.height/7*2+15,40,40);
-    }
-    else{
-      this.ctx.fillRect(obstacle.positionX,this.canvas.height/7*4-5,40,40);
-    }
+    obstacle.draw(obstacle);
   }.bind(this));
 }
 Game.prototype._moveObstacles = function () {
@@ -59,15 +43,15 @@ Game.prototype._moveObstacles = function () {
     obstacle.positionX-=obstacle.speed;
   });
 }
-Game.prototype.createObstaclesInterval = function () {
-    this.obstacleInterval = setInterval(this.createObstacle.bind(this),1000);
+Game.prototype._createObstaclesInterval = function () {
+    this.obstacleInterval = setInterval(this._createObstacle.bind(this),400);
 }
 
-Game.prototype.createObstacle = function () {
-  this.obstaclesArr.push(new Obstacle());
+Game.prototype._createObstacle = function () {
+  this.obstaclesArr.push(new Obstacle(this.canvas,this.ctx));
 }
 
-Game.prototype.removeObstacle = function () {
+Game.prototype._removeObstacle = function () {
   this.obstaclesArr.forEach(function(obstacle){
     if(obstacle.positionX < 0){
       this.obstaclesArr.shift();
@@ -78,18 +62,30 @@ Game.prototype.removeObstacle = function () {
 
 Game.prototype._doFrame = function () {
   this._drawBackground();
-  this._drawPlayer();
+  this.player._drawPlayer();
   this._moveObstacles();
   this._drawObstacles();
-  this.removeObstacle();
+  this._removeObstacle();
   this._controlFlip();
 
   this.intervalGame = window.requestAnimationFrame(this._doFrame.bind(this));
 }
 
 Game.prototype.init = function () {
-  this.createObstaclesInterval();
-  
+  this._createObstaclesInterval();  
   this.intervalGame = window.requestAnimationFrame(this._doFrame.bind(this));
-
 }
+
+
+// Game.prototype.setInRotation = function () {
+//   canvas.setAttribute('class','rotate-crazy');
+//   // setTimeout(function(){
+//   //   canvas.setAttribute('class','rotate-bw');
+//   // },4000);
+//   setTimeout(function (){
+//     canvas.setAttribute('class','');
+//   },10000);
+// }
+// Game.prototype.crazyMovement = function () {
+//   setTimeout(this.setInRotation,5000);
+// }
