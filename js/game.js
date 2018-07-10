@@ -15,6 +15,7 @@ function Game(options){
     over: 0,
     under : 0,
   }
+  this.score = new Score();
   this.init();
 }
 
@@ -148,7 +149,8 @@ Game.prototype._doFrame = function () {
   this._drawObstacles();
   this._removeObstacle();
   this._controlFlip();
-
+  this.score._run();
+  console.log(this.score.score);
   if(this.collitionDetected){
     this._destroyPlayer()
     this.stop();
