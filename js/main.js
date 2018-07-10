@@ -31,7 +31,7 @@ var highscoreSection = document.createElement('section');
 highscoreSection.setAttribute('id','high-score-section');
 highscoreSection.innerHTML = `<div class="content-wrapper">
 <h1>High Score</h1>
-<ul class="high-score-list"></ul>
+<ol class="high-score-list"></ol>
 <footer class="game-over-footer">
   <button class="btn play-btn">Play again</button>
   <button class="btn back-to-start-btn">Go to start</button>
@@ -95,6 +95,10 @@ function createHighScoreScreen(){
     closeBtn.addEventListener('click',destroyHighScoreSection);
 
     var highScore = JSON.parse(localStorage.getItem("playerScore"));
+    highScore.sort(function(a,b){
+      return b.score - a.score;
+    });
+
     printHighScore(highScore);
 }
 
@@ -103,7 +107,7 @@ function printHighScore(highscore){
       ul = document.querySelector('.high-score-list');
   highscore.forEach(function(score){
     li = document.createElement('li');
-    li.innerHTML = score.score;
+    li.innerHTML = `${score.score}`;
     ul.appendChild(li)
   });
 }

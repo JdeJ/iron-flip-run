@@ -2,7 +2,8 @@ function Score(){
   this.score = 0;
   this.scoreSpan = document.querySelector('.score');
   this.highScoreSpan = document.querySelector('.high-score');
-  this.playerScore = JSON.parse(localStorage.getItem("playerScore") || "[]");;
+  this.playerScore = JSON.parse(localStorage.getItem("playerScore") || "[]");
+  this.playerInitials;
 }
 
 Score.prototype._run = function () {
@@ -11,6 +12,7 @@ Score.prototype._run = function () {
 }
 
 Score.prototype._saveScore = function (score) {
-    this.playerScore.push({name: "", score: score});
+    var playerInitials = prompt('Give me some initials');
+    this.playerScore.push({name: playerInitials, score: score});
     localStorage.setItem("playerScore", JSON.stringify(this.playerScore));
 }
