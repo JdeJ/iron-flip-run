@@ -4,9 +4,9 @@ var startSection = document.createElement('section');
   startSection.setAttribute('id','game-wrapper');
   startSection.innerHTML = `<div class="start-screen-wrapper">
     <div class="content-wrapper">
-        <h1>Iron Flip Run</h1>
-        <button class="play-btn">Play</button>
-        <button class="btn highscore-btn">High Score</button>
+      <h1>Iron Flip Run</h1>
+      <button class="play-btn">Play game</button>
+      <button class="btn highscore-btn">High Score</button>
     </div>
   </div>`;
 var gameSection = document.createElement('section');
@@ -105,11 +105,12 @@ function createHighScoreScreen(){
 function printHighScore(highscore){
   var li,
       ul = document.querySelector('.high-score-list');
-  highscore.forEach(function(score){
+  
+  for(var i = 0; i < 10; i++){
     li = document.createElement('li');
-    li.innerHTML = `${score.score}`;
-    ul.appendChild(li)
-  });
+    li.innerHTML = `${highscore[i].score}`;
+    ul.appendChild(li);
+  }
 }
 
 function destroyHighScoreSection(){
