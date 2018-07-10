@@ -9,13 +9,18 @@ function Game(options){
   this.obstaclesArr = [];
   this.obstacleInterval = undefined;
   this.obstacle = options.obstacle;
-  this.intervalGame = undefined;
   this.collitionDetected = false;
+  this.obstacleIntervalNum = 400;
+  this.counter = {
+    over: 0,
+    under : 0,
+  }
   this.init();
 }
 
 Game.prototype._drawBackground = function () {
   //Draw background color
+  this.ctx.globalAlpha = 1;
   for (var columnIndex = 0; columnIndex < this.columns; columnIndex++) {
     for (var rowIndex = 0; rowIndex < this.rows; rowIndex++) {
       this.ctx.fillStyle = this.bgColor;
@@ -36,22 +41,68 @@ Game.prototype._controlFlip = function () {
 }
 
 Game.prototype._drawObstacles = function () {
+  this.ctx.globalAlpha = 1;
   this.obstaclesArr.forEach(function(obstacle){
     obstacle.draw(obstacle);
     this._obstacleCollidesWithPlayer(obstacle,this.player);
   }.bind(this));
 }
+
+Game.prototype.changePosition = function (obstacle) {
+    if(obstacle.positionY === "under"){
+      obstacle.positionY = "over";
+    }
+    else{
+      obstacle.positionY = "under";
+    }
+}
+
+Game.prototype._setPositionY = function () {
+  var positionY = this._setRandomPosition();
+  if(this.obstaclesArr.length > 1){
+    var lastItem = this.obstaclesArr[this.obstaclesArr.length-1];
+
+    if(lastItem.positionY === "over"){
+      this.counter.over++;
+    }
+    else{
+      this.counter.over = 0;
+      this.counter.under++;
+    }
+    if(this.counter.over === 3){
+      positionY = "under";
+      this.counter.over = 0;
+    }
+    else if(this.counter.under === 3){
+      positionY = "over";
+      this.counter.under = 0;
+    }
+    else{
+      positionY = this._setRandomPosition();
+    }
+  }
+  return positionY;
+}
+
+Game.prototype._setRandomPosition = function () {
+  var positionOptions = ["over","under"];
+  var randomNum = Math.floor(Math.random() * positionOptions.length);
+  return positionOptions[randomNum];
+}
+
 Game.prototype._moveObstacles = function () {
   this.obstaclesArr.forEach(function(obstacle){
     obstacle.positionX-=obstacle.speed;
   }.bind(this));
 }
 Game.prototype._createObstaclesInterval = function () {
-    this.obstacleInterval = setInterval(this._createObstacle.bind(this),400);
+    this.obstacleInterval = setInterval(this._createObstacle.bind(this),this.obstacleIntervalNum);
 }
 
 Game.prototype._createObstacle = function () {
-  this.obstaclesArr.push(new Obstacle(this.canvas,this.ctx));
+  var obstaclePositionY = this._setPositionY();
+  console.log(obstaclePositionY);
+  this.obstaclesArr.push(new Obstacle(this.canvas,this.ctx,obstaclePositionY));
 }
 
 Game.prototype._removeObstacle = function () {
@@ -69,12 +120,26 @@ Game.prototype._obstacleCollidesWithPlayer = function(obstacle,player){
 }
 
 Game.prototype.stop = function () {
-  if (this.intervalGame) {
-    clearInterval(this.intervalGame)
-    this.intervalGame = undefined;
+  if (this.obstacleInterval) {
+    clearInterval(this.obstacleInterval)
+    this.obstacleInterval = undefined;
   }
+  document.onkeydown = null
 }
 
+Game.prototype._destroyPlayer = function(){
+  if(this.player.alpha <= 0){
+    console.log('fade');
+    clearInterval(this.intervalFade);
+  }
+  else{
+    this.player.alpha -= 0.09;
+    this._drawBackground();
+    this._drawObstacles();
+    this.player.playerDivide(this.player.alpha);
+    this.player.intervalFade = window.requestAnimationFrame(this._destroyPlayer.bind(this));
+  }
+}
 
 Game.prototype._doFrame = function () {
   this._drawBackground();
@@ -83,18 +148,20 @@ Game.prototype._doFrame = function () {
   this._drawObstacles();
   this._removeObstacle();
   this._controlFlip();
+
   if(this.collitionDetected){
+    this._destroyPlayer()
     this.stop();
-    gameOver();
+    //gameOver();
   }
   else{
-    this.intervalGame = window.requestAnimationFrame(this._doFrame.bind(this));
+    window.requestAnimationFrame(this._doFrame.bind(this));
   }
 }
 
 Game.prototype.init = function () {
   this._createObstaclesInterval();  
-  this.intervalGame = window.requestAnimationFrame(this._doFrame.bind(this));
+  this._doFrame();
 }
 
 

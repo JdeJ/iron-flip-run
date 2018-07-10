@@ -1,15 +1,9 @@
-function Obstacle(canvas,ctx){
+function Obstacle(canvas,ctx,obstaclePositionY){
   this.canvas = canvas;
   this.ctx = ctx;
-  this.positionY = this.randomPosition();
+  this.positionY = obstaclePositionY;
   this.positionX = 800;
   this.speed = 10;
-}
-
-Obstacle.prototype.randomPosition = function () {
-  var positionOptions = ["over","under"];
-  var randomNum = Math.floor(Math.random() * positionOptions.length);
-  return positionOptions[randomNum];
 }
 
 Obstacle.prototype.draw = function (obstacle) {
@@ -21,13 +15,3 @@ Obstacle.prototype.draw = function (obstacle) {
       this.ctx.fillRect(obstacle.positionX,this.canvas.height/7*4-5,40,40);
     }
 }
-
-// Obstacle.prototype.move = function () {
-//   if(!this.intervalId){
-//     this.intervalId = setInterval(this._moveObstacles.bind(this),100);
-//   }
-// }
-
-// Obstacle.prototype.start = function () {
-//   this.move();
-// }
