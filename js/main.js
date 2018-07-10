@@ -16,15 +16,13 @@ gameSection.innerHTML = `<div class="container">
   </div>
 </div>`;
 var gameOverSection = document.createElement('section');
-gameOverSection.setAttribute('id','game-wrapper');
-gameOverSection.innerHTML = `<div class="container">
-  <div class="gameover-screen-wrapper">
-    <div class="content-wrapper">
-        <h1>Game over</h1>
-        <button class="play-btn">Play again</button>
-        <button class="back-to-start-btn">Go to start</button>
-    </div>
-  </div>
+gameOverSection.setAttribute('id','game-over-section');
+gameOverSection.innerHTML = `<div class="content-wrapper">
+  <h1>Game over</h1>
+  <footer class="game-over-footer">
+    <button class="btn play-btn">Play again</button>
+    <button class="btn back-to-start-btn">Go to start</button>
+  </footer>
 </div>`;
 var playBtn = null;
 var goToStartBtn = null;
@@ -87,7 +85,6 @@ function changeToStart () {
 function gameOver () {
   canvas = null;
   ctx = null;
-  clearContent();
   createGameoverScreen();
 }
 

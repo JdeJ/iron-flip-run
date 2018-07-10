@@ -152,7 +152,7 @@ Game.prototype._doFrame = function () {
   if(this.collitionDetected){
     this._destroyPlayer()
     this.stop();
-    //gameOver();
+    gameOver();
   }
   else{
     window.requestAnimationFrame(this._doFrame.bind(this));

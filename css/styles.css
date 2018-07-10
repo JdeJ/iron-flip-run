@@ -50,7 +50,10 @@ button:hover{
   opacity: 0;
   left:-100%;
 }
-#game-states, #game-wrapper .start-screen-wrapper,.gameover-screen-wrapper{
+#game-states{
+  position: relative;
+}
+#game-states, #game-wrapper .start-screen-wrapper,#game-over-section{
   overflow: hidden;
   width: 650px;
   height:350px;
@@ -58,8 +61,13 @@ button:hover{
   margin: 0 auto;
   max-width: 100%;
 }
-.start-screen-wrapper,.gameover-screen-wrapper{
+.start-screen-wrapper{
   background: #fff;
+}
+#game-over-section{
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .content-wrapper{
   display: flex;
@@ -67,6 +75,25 @@ button:hover{
   align-items: center;
   flex-direction: column;
   height: 100%;
+}
+#game-over-section .content-wrapper{
+  justify-content: space-between;
+}
+.game-over-footer{
+  text-align: center;
+  background: #000;
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.game-over-footer .btn{
+  color: #fff;
+  background:#000;
+  font-size: 20px;
+  width: 33.33333%;
+  text-align: center;
+  text-transform: uppercase;
 }
 #loading {
 }
