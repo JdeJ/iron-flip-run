@@ -10,12 +10,12 @@ function Game(options){
   this.obstacleInterval = undefined;
   this.obstacle = options.obstacle;
   this.collitionDetected = false;
-  this.obstacleIntervalNum = 400;
+  this.obstacleIntervalNum = 350;
+  this.highScore = localStorage.getItem('highestScore');
   this.counter = {
     over: 0,
     under : 0,
   }
-  this.score = new Score();
   this.init();
 }
 
@@ -29,10 +29,8 @@ Game.prototype._drawBackground = function () {
     }
   }
   //Draw fixed game line color
-  for(var posX = 0; posX < this.canvas.width; posX+=40){
     this.ctx.fillStyle = "#000";
-    this.ctx.fillRect(posX,this.canvas.height/2-20,40,40);
-  }
+    this.ctx.fillRect(0,this.canvas.height/2-15,this.canvas.width,30);
 }
 
 Game.prototype._controlFlip = function () {
@@ -125,22 +123,11 @@ Game.prototype.stop = function () {
     clearInterval(this.obstacleInterval)
     this.obstacleInterval = undefined;
   }
-  document.onkeydown = null
+  document.onkeydown = null;
+  this.player.score._saveScore(this.player.score.score);
 }
 
-Game.prototype._destroyPlayer = function(){
-  if(this.player.alpha <= 0){
-    console.log('fade');
-    clearInterval(this.intervalFade);
-  }
-  else{
-    this.player.alpha -= 0.09;
-    this._drawBackground();
-    this._drawObstacles();
-    this.player.playerDivide(this.player.alpha);
-    this.player.intervalFade = window.requestAnimationFrame(this._destroyPlayer.bind(this));
-  }
-}
+
 
 Game.prototype._doFrame = function () {
   this._drawBackground();
@@ -149,10 +136,10 @@ Game.prototype._doFrame = function () {
   this._drawObstacles();
   this._removeObstacle();
   this._controlFlip();
-  this.score._run();
-  console.log(this.score.score);
+  this.player.score._run();
+  console.log(this.player.score.score);
   if(this.collitionDetected){
-    this._destroyPlayer()
+    //this._destroyPlayer()
     this.stop();
     gameOver();
   }

@@ -55,7 +55,7 @@ button:hover{
 }
 #game-states, #game-wrapper .start-screen-wrapper,#game-over-section{
   overflow: hidden;
-  width: 650px;
+  width: 750px;
   height:350px;
   align-self: center;
   margin: 0 auto;
@@ -75,13 +75,24 @@ button:hover{
   color: #fff;
   font-size: 30px;
   height: 50px;
-  line-height: 47px;
+  line-height: 50px;
 }
 #game-over-section{
   position: absolute;
   left: 0;
   top: 0;
   z-index: 1;
+}
+#high-score-section{
+  width: 500px;
+  height: 90%;
+  position: absolute;
+  left: 50%;
+  margin-left: -250px;
+  top: 5%;
+  z-index: 2;
+  background:#000;
+  color: #fff;
 }
 .content-wrapper{
   display: flex;

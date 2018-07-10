@@ -6,6 +6,7 @@ var startSection = document.createElement('section');
     <div class="content-wrapper">
         <h1>Iron Flip Run</h1>
         <button class="play-btn">Play</button>
+        <button class="btn highscore-btn">High Score</button>
     </div>
   </div>`;
 var gameSection = document.createElement('section');
@@ -23,10 +24,24 @@ gameOverSection.innerHTML = `<div class="content-wrapper">
   <footer class="game-over-footer">
     <button class="btn play-btn">Play again</button>
     <button class="btn back-to-start-btn">Go to start</button>
+    <button class="btn highscore-btn">High Score</button>
   </footer>
+</div>`;
+var highscoreSection = document.createElement('section');
+highscoreSection.setAttribute('id','high-score-section');
+highscoreSection.innerHTML = `<div class="content-wrapper">
+<h1>High Score</h1>
+<ul class="high-score-list"></ul>
+<footer class="game-over-footer">
+  <button class="btn play-btn">Play again</button>
+  <button class="btn back-to-start-btn">Go to start</button>
+  <button class="btn close-btn">Close</button>
+</footer>
 </div>`;
 var playBtn = null;
 var goToStartBtn = null;
+var highscoreBtn = null;
+var closeBtn = null;
 var canvas = null;
 var ctx = null;
 var game = null;
@@ -34,7 +49,9 @@ var game = null;
 function createStartScreen () {
   generalWrapper.prepend(startSection);
   playBtn = document.querySelector('.play-btn');
+  highscoreBtn = document.querySelector('.highscore-btn');
   playBtn.addEventListener('click',changeToGame);
+  highscoreBtn.addEventListener('click',createHighScoreScreen);
 }
 
 //createStartScreen();
@@ -60,9 +77,40 @@ function createGameoverScreen () {
   generalWrapper.prepend(gameOverSection);
   playBtn = document.querySelector('.play-btn');
   goToStartBtn = document.querySelector('.back-to-start-btn');
+  highscoreBtn = document.querySelector('.highscore-btn');
 
   playBtn.addEventListener('click',changeToGame);
   goToStartBtn.addEventListener('click',changeToStart);
+  highscoreBtn.addEventListener('click',createHighScoreScreen);
+}
+
+function createHighScoreScreen(){
+    generalWrapper.prepend(highscoreSection);
+    playBtn = document.querySelector('.play-btn');
+    goToStartBtn = document.querySelector('.back-to-start-btn');
+    closeBtn = document.querySelector('.close-btn');
+  
+    playBtn.addEventListener('click',changeToGame);
+    goToStartBtn.addEventListener('click',changeToStart);
+    closeBtn.addEventListener('click',destroyHighScoreSection);
+
+    var highScore = JSON.parse(localStorage.getItem("playerScore"));
+    printHighScore(highScore);
+}
+
+function printHighScore(highscore){
+  var li,
+      ul = document.querySelector('.high-score-list');
+  highscore.forEach(function(score){
+    li = document.createElement('li');
+    li.innerHTML = score.score;
+    ul.appendChild(li)
+  });
+}
+
+function destroyHighScoreSection(){
+  document.querySelector('.high-score-list').innerHTML = "";
+  generalWrapper.removeChild(highscoreSection);
 }
 
 function clearContent () {
