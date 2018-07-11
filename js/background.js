@@ -2,7 +2,8 @@ function Background(ctx,canvas){
   this.canvasWidth = canvas.width;
   this.ctx = ctx;
   this.bgImage = new Image();
-  this.bgImage.src = "./images/background-blue.png";
+  this.backgroundChoices = ["./images/background-blue.png","./images/background-green.png","./images/background-yellow.png","./images/background-orange.png","./images/background-fux.png","./images/background-red.png"];
+  this.bgImage.src = this.getRandomImage();
   this.speed = 2;
   this.y = 0;
   this.x = 0;
@@ -19,6 +20,10 @@ Background.prototype._draw = function () {
   }
 }
 
-Background.prototype._move = function () {
+Background.prototype.getRandomImage = function () {
+  console.log(this.backgroundChoices);
+  var randomNum = Math.floor(Math.random() * this.backgroundChoices.length);
 
+  return this.backgroundChoices[randomNum];
 }
+

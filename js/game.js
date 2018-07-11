@@ -158,7 +158,7 @@ Game.prototype.init = function () {
 
 
 Game.prototype.setInRotation = function () {
-  canvas.setAttribute('class','rotate-crazy');
+  this.canvas.setAttribute('class','rotate-crazy');
   // setTimeout(function(){
   //   canvas.setAttribute('class','rotate-bw');
   // },4000);

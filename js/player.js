@@ -33,16 +33,12 @@ Player.prototype.playerDivide = function (alpha) {
   this.ctx.globalAlpha = alpha;
   this.ctx.fillStyle = this.color;
 
-
   if(this.playerPositionY === "over"){
     this.ctx.fillRect(this.playerPositionX,this.this.canvas.height/2-45,14,14);
     this.ctx.fillRect(this.playerPositionX+21,this.canvas.height/7*2+15,19,19);
     this.ctx.fillRect(this.playerPositionX,this.canvas.height/7*2+15+21,19,19);
     this.ctx.fillRect(this.playerPositionX+21,this.canvas.height/7*2+15+21,19,19);
-
     this.ctx.fillRect(this.playerPositionX,this.canvas.height/2-45,30,30);
-
-
   }
   else{
     this.ctx.fillRect(this.playerPositionX,this.canvas.height/7*4-5,19,19);
