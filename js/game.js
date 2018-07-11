@@ -12,7 +12,7 @@ function Game(options){
   this.obstacle = options.obstacle;
   this.collitionDetected = false;
   this.obstacleIntervalNum = 350;
-  this.highScore = localStorage.getItem('highestScore');
+  this.highScore = undefined;
   this.counter = {
     over: 0,
     under : 0,
@@ -120,6 +120,8 @@ Game.prototype._obstacleCollidesWithPlayer = function(obstacle,player){
 }
 
 Game.prototype.stop = function () {
+  this.canvas.classList.remove('rotate-crazy');
+
   if (this.obstacleInterval) {
     clearInterval(this.obstacleInterval)
     this.obstacleInterval = undefined;
@@ -152,7 +154,6 @@ Game.prototype._doFrame = function () {
 Game.prototype.init = function () {
   this._createObstaclesInterval();
   this.crazyMovement();
-
   this._doFrame();
 }
 

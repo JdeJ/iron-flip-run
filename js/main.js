@@ -4,7 +4,7 @@ var startSection = document.createElement('section');
   startSection.setAttribute('id','game-wrapper');
   startSection.innerHTML = `<div class="start-screen-wrapper">
     <div class="content-wrapper">
-      <h1>Iron Flip Run</h1>
+      <h1>Eisen Flip Laufen</h1>
       <button class="play-btn">Play game</button>
     <footer class="start-screen-footer">
       <button class="btn highscore-btn">High Score</button>
@@ -37,7 +37,6 @@ highscoreSection.innerHTML = `<div class="content-wrapper">
 <ol class="high-score-list"></ol>
 <footer class="game-over-footer">
   <button class="btn play-btn">Play again</button>
-  <button class="btn back-to-start-btn">Go to start</button>
   <button class="btn close-btn">Close</button>
 </footer>
 </div>`;
@@ -97,11 +96,9 @@ function createGameoverScreen () {
 function createHighScoreScreen(){
     generalWrapper.prepend(highscoreSection);
     playBtn = document.querySelector('.play-btn');
-    goToStartBtn = document.querySelector('.back-to-start-btn');
     closeBtn = document.querySelector('.close-btn');
   
     playBtn.addEventListener('click',changeToGame);
-    goToStartBtn.addEventListener('click',changeToStart);
     closeBtn.addEventListener('click',destroyHighScoreSection);
 
     var highScore = JSON.parse(localStorage.getItem("playerScore"));

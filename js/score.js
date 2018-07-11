@@ -3,7 +3,7 @@ function Score(){
   this.scoreSpan = document.querySelector('.score');
   this.highScoreSpan = document.querySelector('.high-score');
   this.playerScore = JSON.parse(localStorage.getItem("playerScore") || "[]");
-  this.playerInitials = undefined;
+  this.playerInitials = "Ironhacker";
 }
 
 Score.prototype._run = function () {
@@ -12,7 +12,12 @@ Score.prototype._run = function () {
 }
 
 Score.prototype._saveScore = function (score) {
-    //var playerInitials = prompt('Give me some initials');
+
+  if(localStorage.getItem('highestScore')){
+      if(score > localStorage.getItem('highestScore')){
+        localStorage.setItem('highestScore',score);
+      }
+    }
     this.playerScore.push({name: this.playerInitials, score: score});
     localStorage.setItem("playerScore", JSON.stringify(this.playerScore));
 }
