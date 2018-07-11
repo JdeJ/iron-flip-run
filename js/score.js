@@ -12,6 +12,9 @@ Score.prototype._run = function () {
 }
 
 Score.prototype._saveScore = function (score) {
+  if(!localStorage.getItem('highestScore')){
+    localStorage.setItem('highestScore',score);
+  }
 
   if(localStorage.getItem('highestScore')){
       if(score > localStorage.getItem('highestScore')){

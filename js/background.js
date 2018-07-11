@@ -11,7 +11,6 @@ function Background(ctx,canvas){
 
 Background.prototype._draw = function () {
   this.x -= this.speed;
-  console.log(this.canvasWidth);
   this.ctx.drawImage(this.bgImage, this.x, this.y);
   this.ctx.drawImage(this.bgImage, this.x+this.canvasWidth-3, this.y);
 
@@ -21,9 +20,7 @@ Background.prototype._draw = function () {
 }
 
 Background.prototype.getRandomImage = function () {
-  console.log(this.backgroundChoices);
   var randomNum = Math.floor(Math.random() * this.backgroundChoices.length);
-
   return this.backgroundChoices[randomNum];
 }
 

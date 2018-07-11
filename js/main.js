@@ -111,11 +111,15 @@ function createHighScoreScreen(){
 
 function printHighScore(highscore){
   var li,
-      ul = document.querySelector('.high-score-list');
-  
-  for(var i = 0; i < 10; i++){
+      ul = document.querySelector('.high-score-list'),
+      numOfplayers = highscore.length;
+
+      numOfplayers < 10 ? numOfplayers = numOfplayers : numOfplayers = 10;
+
+  if(highscore.length < 10)
+  for(var i = 0; i < numOfplayers; i++){
     li = document.createElement('li');
-    li.innerHTML = `${highscore[i].score}`;
+    li.innerHTML = `${highscore[i].score} : ${highscore[i].name}`;
     ul.appendChild(li);
   }
 }
