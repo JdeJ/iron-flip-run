@@ -6,12 +6,15 @@ var startSection = document.createElement('section');
     <div class="content-wrapper">
       <h1>Iron Flip Run</h1>
       <button class="play-btn">Play game</button>
+    <footer class="start-screen-footer">
       <button class="btn highscore-btn">High Score</button>
+    </footer>
     </div>
   </div>`;
 var gameSection = document.createElement('section');
 gameSection.setAttribute('id','game-wrapper');
-gameSection.innerHTML = `<div class="container">
+gameSection.innerHTML = `<div class="overlay" id="overlay-triangle-up"></div>
+<div class="overlay" id="overlay-triangle-down"></div><div class="container">
   <div class="canvas-wrapper">
       <span class="score"></span>
       <canvas id="game-board" width="850" height="350"></canvas>
@@ -57,7 +60,14 @@ function createStartScreen () {
 //createStartScreen();
 function createGameScreen () { 
   generalWrapper.prepend(gameSection);
-  initGame();
+  document.getElementById('overlay-triangle-up').classList.remove('move');
+  document.getElementById('overlay-triangle-down').classList.remove('move');
+  setTimeout(function(){
+    document.getElementById('overlay-triangle-up').classList += ' move';
+    document.getElementById('overlay-triangle-down').classList += ' move';
+    initGame();
+  },500);
+  
 }
 function initGame () {
   canvas = document.getElementById('game-board');
@@ -123,12 +133,15 @@ function clearContent () {
   // setTimeout(function(){
   //   overlay.classList.toggle('fade-out');
   // },1000);
+  if(document.querySelector('.high-score-list')){
+    document.querySelector('.high-score-list').innerHTML = "";
+  }
   generalWrapper.innerHTML = "";
 }
 
 function changeToGame () {
-  clearContent();
-  createGameScreen();
+    clearContent();
+    createGameScreen();
 }
 
 function changeToStart () {

@@ -152,7 +152,7 @@ Game.prototype._doFrame = function () {
 
 Game.prototype.init = function () {
   this._createObstaclesInterval();
-  //this.crazyMovement();
+  this.crazyMovement();
 
   this._doFrame();
 }
