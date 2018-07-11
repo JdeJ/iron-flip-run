@@ -21,8 +21,6 @@ Score.prototype._saveScore = function (score) {
       }
     }
   this.playerScore.push({name: this.playerInitials, score: score});
-  if(this.playerScore.length > 10){
-    this.playerScore.pop();
-  }
+ 
   localStorage.setItem("playerScore", JSON.stringify(this.playerScore));
 }

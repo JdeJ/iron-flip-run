@@ -96,7 +96,9 @@ function createGameoverScreen () {
 }
 
 function createHighScoreScreen(){
+
     generalWrapper.prepend(highscoreSection);
+    document.querySelector('.high-score-list').innerHTML = "";
     playBtn = document.querySelector('.play-btn');
     closeBtn = document.querySelector('.close-btn');
   
@@ -158,6 +160,5 @@ function gameOver () {
 }
 
 window.onload = function() {
-  //overlay.classList.toggle('fade-out');
   createStartScreen();
 };

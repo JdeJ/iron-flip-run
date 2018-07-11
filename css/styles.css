@@ -394,13 +394,13 @@ button:active,button:focus{
     -webkit-transform: rotate(35deg);
   }
   24%{
-    -webkit-transform: rotate(170deg);
+    -webkit-transform: rotate(35deg);
   }
   40%{
-    -webkit-transform: rotate(170deg);
+    -webkit-transform: rotate(35deg);
   }
   50%{
-    -webkit-transform: rotate(35deg);
+    -webkit-transform: rotate(20deg);
   }
   80%{
     -webkit-transform: rotate(20deg);
