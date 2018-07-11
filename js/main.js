@@ -4,7 +4,8 @@ var startSection = document.createElement('section');
   startSection.setAttribute('id','game-wrapper');
   startSection.innerHTML = `<div class="start-screen-wrapper">
     <div class="content-wrapper">
-      <h1>Eisen Flip Laufen</h1>
+      <h1>Eisen FLop Laufen</h1>
+      <h2><small>Iron Flop Run - The game</small></h2>
       <button class="play-btn">Play game</button>
     <footer class="start-screen-footer">
       <button class="btn highscore-btn">High Score</button>
