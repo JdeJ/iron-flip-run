@@ -6,7 +6,7 @@ function Game(options){
   this.bgColor = options.bgColor;
   this.margin = 100;
   this.player = new Player(this.canvas,this.ctx);
-  this.background = new Background(this.ctx);
+  this.background = new Background(this.ctx,this.canvas);
   this.obstaclesArr = [];
   this.obstacleInterval = undefined;
   this.obstacle = options.obstacle;
@@ -22,13 +22,13 @@ function Game(options){
 
 Game.prototype._drawBackground = function () {
   //Draw background color
-  this.ctx.globalAlpha = 1;
-  for (var columnIndex = 0; columnIndex < this.columns; columnIndex++) {
-    for (var rowIndex = 0; rowIndex < this.rows; rowIndex++) {
-      this.ctx.fillStyle = this.bgColor;
-      this.ctx.fillRect(columnIndex * 10, rowIndex * 10, 10, 10);
-    }
-  }
+  // this.ctx.globalAlpha = 1;
+  // for (var columnIndex = 0; columnIndex < this.columns; columnIndex++) {
+  //   for (var rowIndex = 0; rowIndex < this.rows; rowIndex++) {
+  //     this.ctx.fillStyle = this.bgColor;
+  //     this.ctx.fillRect(columnIndex * 10, rowIndex * 10, 10, 10);
+  //   }
+  // }
   //Draw fixed game line color
     this.ctx.fillStyle = "#000";
     this.ctx.fillRect(0,this.canvas.height/2-15,this.canvas.width,30);
@@ -131,8 +131,7 @@ Game.prototype.stop = function () {
 
 
 Game.prototype._doFrame = function () {
-  //this.background._draw();
-
+  this.background._draw();
   this._drawBackground();
   this.player._drawPlayer();
   this._moveObstacles();
@@ -163,9 +162,6 @@ Game.prototype.setInRotation = function () {
   // setTimeout(function(){
   //   canvas.setAttribute('class','rotate-bw');
   // },4000);
-  setTimeout(function (){
-    canvas.setAttribute('class','');
-  },10000);
 }
 Game.prototype.crazyMovement = function () {
   setTimeout(this.setInRotation,5000);
