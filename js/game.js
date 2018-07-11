@@ -4,6 +4,7 @@ function Game(options){
   this.columns = options.columns;
   this.ctx = options.ctx;
   this.bgColor = options.bgColor;
+  this.bgAudio = new Sound("./audio/sweinsteiger-1.mp3");
   this.margin = 100;
   this.player = new Player(this.canvas,this.ctx);
   this.background = new Background(this.ctx,this.canvas);
@@ -137,6 +138,7 @@ Game.prototype._compareScore = function () {
 }
 
 Game.prototype.stop = function () {
+  this.bgAudio._stop();
   this.canvas.classList.remove('rotate-crazy');
   this.highScoreMessage.classList.remove('active');
   this.highScoreMessage.innerHTML = "";
@@ -169,6 +171,7 @@ Game.prototype._doFrame = function () {
 }
 
 Game.prototype.init = function () {
+  this.bgAudio._play();
   this._createObstaclesInterval();
   this.crazyMovement();
   this._getHighScore();
