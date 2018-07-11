@@ -17,6 +17,7 @@ gameSection.innerHTML = `<div class="overlay" id="overlay-triangle-up"></div>
 <div class="overlay" id="overlay-triangle-down"></div><div class="container">
   <div class="canvas-wrapper">
       <span class="score"></span>
+      <span class="high-score-message"></span>
       <canvas id="game-board" width="850" height="350"></canvas>
   </div>
 </div>`;
@@ -34,8 +35,9 @@ var highscoreSection = document.createElement('section');
 highscoreSection.setAttribute('id','high-score-section');
 highscoreSection.innerHTML = `<div class="content-wrapper">
 <h1>High Score</h1>
+<h2>The 10 best players</h2>
 <ol class="high-score-list"></ol>
-<footer class="game-over-footer">
+<footer class="high-score-footer">
   <button class="btn play-btn">Play again</button>
   <button class="btn close-btn">Close</button>
 </footer>
@@ -62,8 +64,8 @@ function createGameScreen () {
   document.getElementById('overlay-triangle-up').classList.remove('move');
   document.getElementById('overlay-triangle-down').classList.remove('move');
   setTimeout(function(){
-    document.getElementById('overlay-triangle-up').classList += ' move';
-    document.getElementById('overlay-triangle-down').classList += ' move';
+    document.getElementById('overlay-triangle-up').classList.add('move');
+    document.getElementById('overlay-triangle-down').classList.add('move');
     initGame();
   },500);
   
@@ -102,11 +104,15 @@ function createHighScoreScreen(){
     closeBtn.addEventListener('click',destroyHighScoreSection);
 
     var highScore = JSON.parse(localStorage.getItem("playerScore"));
-    highScore.sort(function(a,b){
-      return b.score - a.score;
-    });
-
-    printHighScore(highScore);
+  
+    if(highScore && highScore.length > 1){
+      highScore.sort(function(a,b){
+        return b.score - a.score;
+      });
+    }
+    if(highScore){
+      printHighScore(highScore);
+    }
 }
 
 function printHighScore(highscore){
@@ -114,12 +120,11 @@ function printHighScore(highscore){
       ul = document.querySelector('.high-score-list'),
       numOfplayers = highscore.length;
 
-      numOfplayers < 10 ? numOfplayers = numOfplayers : numOfplayers = 10;
+  numOfplayers < 10 ? numOfplayers = numOfplayers : numOfplayers = 10;
 
-  if(highscore.length < 10)
   for(var i = 0; i < numOfplayers; i++){
     li = document.createElement('li');
-    li.innerHTML = `${highscore[i].score} : ${highscore[i].name}`;
+    li.innerHTML = `<span>${highscore[i].score}</span> : <span>${highscore[i].name}</span>`;
     ul.appendChild(li);
   }
 }
@@ -130,10 +135,6 @@ function destroyHighScoreSection(){
 }
 
 function clearContent () {
-  // overlay.classList.toggle('fade-out');
-  // setTimeout(function(){
-  //   overlay.classList.toggle('fade-out');
-  // },1000);
   if(document.querySelector('.high-score-list')){
     document.querySelector('.high-score-list').innerHTML = "";
   }

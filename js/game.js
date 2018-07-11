@@ -13,6 +13,7 @@ function Game(options){
   this.collitionDetected = false;
   this.obstacleIntervalNum = 350;
   this.highScore = undefined;
+  this.highScoreMessage = document.querySelector('.high-score-message');
   this.counter = {
     over: 0,
     under : 0,
@@ -101,7 +102,6 @@ Game.prototype._createObstaclesInterval = function () {
 
 Game.prototype._createObstacle = function () {
   var obstaclePositionY = this._setPositionY();
-  console.log(obstaclePositionY);
   this.obstaclesArr.push(new Obstacle(this.canvas,this.ctx,obstaclePositionY));
 }
 
@@ -119,9 +119,27 @@ Game.prototype._obstacleCollidesWithPlayer = function(obstacle,player){
   }
 }
 
+Game.prototype._getHighScore = function () {
+  if(localStorage.getItem('highestScore')){
+    this.highScore = localStorage.getItem('highestScore');
+  }
+}
+
+Game.prototype._compareScore = function () {
+  if(this.highScore){
+    if(this.player.score.score > this.highScore){
+      this.highScoreMessage.innerHTML = "New High Score!!!";
+      if(!this.highScoreMessage.classList.contains('active')){
+        this.highScoreMessage.classList.add('active');
+      }
+    }
+  }
+}
+
 Game.prototype.stop = function () {
   this.canvas.classList.remove('rotate-crazy');
-
+  this.highScoreMessage.classList.remove('active');
+  this.highScoreMessage.innerHTML = "";
   if (this.obstacleInterval) {
     clearInterval(this.obstacleInterval)
     this.obstacleInterval = undefined;
@@ -129,8 +147,6 @@ Game.prototype.stop = function () {
   document.onkeydown = null;
   this.player.score._saveScore(this.player.score.score);
 }
-
-
 
 Game.prototype._doFrame = function () {
   this.background._draw();
@@ -140,6 +156,7 @@ Game.prototype._doFrame = function () {
   this._drawObstacles();
   this._removeObstacle();
   this._controlFlip();
+  this._compareScore();
   this.player.score._run();
   if(this.collitionDetected){
     //this._destroyPlayer()
@@ -154,13 +171,15 @@ Game.prototype._doFrame = function () {
 Game.prototype.init = function () {
   this._createObstaclesInterval();
   this.crazyMovement();
+  this._getHighScore();
   this._doFrame();
 }
 
 
 Game.prototype.setInRotation = function () {
-  this.canvas.setAttribute('class','rotate-crazy');
-
+  if(this.canvas){
+    this.canvas.setAttribute('class','rotate-crazy');
+  }
 }
 Game.prototype.crazyMovement = function () {
   setTimeout(this.setInRotation,5000);

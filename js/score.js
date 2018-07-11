@@ -15,12 +15,14 @@ Score.prototype._saveScore = function (score) {
   if(!localStorage.getItem('highestScore')){
     localStorage.setItem('highestScore',score);
   }
-
   if(localStorage.getItem('highestScore')){
       if(score > localStorage.getItem('highestScore')){
         localStorage.setItem('highestScore',score);
       }
     }
-    this.playerScore.push({name: this.playerInitials, score: score});
-    localStorage.setItem("playerScore", JSON.stringify(this.playerScore));
+  this.playerScore.push({name: this.playerInitials, score: score});
+  if(this.playerScore.length > 10){
+    this.playerScore.pop();
+  }
+  localStorage.setItem("playerScore", JSON.stringify(this.playerScore));
 }

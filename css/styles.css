@@ -82,12 +82,12 @@ button:active,button:focus{
 #overlay-triangle-up {
   width: 0;
   height: 0;
-  border-left: 700px solid transparent;
+  border-left: 701px solid transparent;
   border-right: 0 solid transparent;
   border-bottom: 350px solid #000;
-  transition: 1s ease-in-out;
+  transition: .8s ease-in-out;
   position: absolute;
-  z-index: 1;
+  z-index: 4;
   top: 0;
   right: 0;
   opacity: 1;
@@ -98,12 +98,12 @@ button:active,button:focus{
   width: 0;
   height: 0;
   border-left: 0 solid transparent;
-  border-right: 700px solid transparent;
+  border-right: 701px solid transparent;
   border-top: 350px solid #000;
-  transition: 1s ease-in-out;
+  transition: .8s ease-in-out;
   float: left;
   position: absolute;
-  z-index: 1;
+  z-index: 4;
   left: 0;
   top: 0;
 }
@@ -149,9 +149,10 @@ button:active,button:focus{
   margin-top: 20px;
 }
 .high-score-list{
-  margin: 20px 0 0px;
+  margin: 10px 0 0px;
   padding: 0;
   list-style-type: none;
+  width: 47%;
 }
 .high-score-list li{
   color:#07b0cf;
@@ -193,7 +194,10 @@ button:active,button:focus{
 }
 .high-score-list li:nth-of-type(10){
   color: #953eef;
-
+}
+.high-score-list span{
+  width: 40px;
+  display: inline-block;
 }
 .canvas-wrapper{
   position: relative;
@@ -209,6 +213,22 @@ button:active,button:focus{
   line-height: 26px;
   z-index: 3;
 }
+.canvas-wrapper .high-score-message{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #000;
+  font-size: 25px;
+  z-index: 5;
+  opacity: 0;
+  transition: all 1s;
+}
+.canvas-wrapper .high-score-message.active{
+  -webkit-animation: Grow 1.2s ease-out;
+	-moz-animation: Grow 1.2s ease-out;
+	animation: Grow 1.2s ease-out;
+}
 #game-over-section{
   position: absolute;
   left: 0;
@@ -216,12 +236,13 @@ button:active,button:focus{
   z-index: 1;
 }
 #high-score-section{
-  width: 500px;
-  height: 90%;
+  text-transform: uppercase;
+  width: 400px;
+  height: 98%;
   position: absolute;
   left: 50%;
-  margin-left: -250px;
-  top: 5%;
+  margin-left: -200px;
+  top: 1%;
   z-index: 4;
   background:#000;
   color: #fff;
@@ -242,7 +263,7 @@ button:active,button:focus{
 #game-over-section .content-wrapper{
   justify-content: space-between;
 }
-.game-over-footer,.start-screen-footer{
+.game-over-footer,.start-screen-footer, .high-score-footer {
   text-align: center;
   background: #000;
   width: 100%;
@@ -250,7 +271,7 @@ button:active,button:focus{
   display: flex;
   justify-content: space-between;
 }
-.game-over-footer .btn{
+.game-over-footer .btn, .high-score-footer .btn{
   color: #fff;
   background:#000;
   font-size: 20px;
@@ -263,12 +284,9 @@ button:active,button:focus{
   width: 100%;
   font-size: 20px;
 }
-#loading {
-}
 #game-board{
   margin-left: -75px;
 }
-
 /*Define rotate classes for different animations*/
 #game-board.rotate-fw{
   -webkit-animation: rotation-fw 4s infinite linear;
@@ -318,26 +336,74 @@ button:active,button:focus{
 	}
 }
 
+@-webkit-keyframes Grow {
+  0% {
+    font-size: 50px;
+    opacity: 1;
+	}
+	50% {
+    font-size: 150px;
+    opacity: .7;
+	}
+	100% {
+    font-size: 200px;
+    opacity: 0;
+	}
+}
+
+@-moz-keyframes Grow {
+  0% {
+    font-size: 50px;
+    opacity: 1;
+	}
+	50% {
+    font-size: 150px;
+    opacity: .7;
+	}
+	100% {
+    font-size: 200px;
+    opacity: 0;
+	}
+}
+
+@keyframes Grow {
+	0% {
+    font-size: 50px;
+    opacity: 1;
+	}
+	50% {
+    font-size: 150px;
+    opacity: .7;
+	}
+	100% {
+    font-size: 200px;
+    opacity: 0;
+	}
+}
+
 /*Define rotate animations for canvas to rotate*/
 
 @-webkit-keyframes rotation-fw-bw-fw-bw {
   0% {
       -webkit-transform: rotate(0deg);
   }
-  25%{
+  15%{
       -webkit-transform: rotate(35deg);
   }
-  30%{
-    -webkit-transform: rotate(160deg);
+  20%{
+    -webkit-transform: rotate(35deg);
   }
-  55%{
-    -webkit-transform: rotate(160deg);
+  24%{
+    -webkit-transform: rotate(170deg);
   }
-  70%{
-    -webkit-transform: rotate(180deg);
+  40%{
+    -webkit-transform: rotate(170deg);
+  }
+  50%{
+    -webkit-transform: rotate(35deg);
   }
   80%{
-    -webkit-transform: rotate(60deg);
+    -webkit-transform: rotate(20deg);
   }
   100% {
       -webkit-transform: rotate(0deg);
