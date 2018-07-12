@@ -3,7 +3,7 @@ function Obstacle(canvas,ctx,obstaclePositionY){
   this.ctx = ctx;
   this.positionY = obstaclePositionY;
   this.positionX = 850;
-  this.speed = 10;
+  this.speed = 11;
 }
 
 Obstacle.prototype.draw = function (obstacle) {
