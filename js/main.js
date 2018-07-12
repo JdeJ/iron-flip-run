@@ -1,16 +1,19 @@
 var body = document.getElementsByTagName('body')[0];
 var generalWrapper = document.getElementById('game-states');
 var overlay = document.querySelector('.overlay');
+var currentHighest = null;
 var startSection = document.createElement('section');
   startSection.setAttribute('id','game-wrapper');
   startSection.innerHTML = `<div class="start-screen-wrapper">
     <div class="content-wrapper">
+      <header>Highest score: <span id="highest"></span></header>
       <h1>Eisen FLop Laufen</h1>
       <h2><small>Iron Flop Run - The game</small></h2>
-      <button class="play-btn">Play game</button>
-    <footer class="start-screen-footer">
+      <button class="play-btn btn no-border">Press to play</button>
       <button class="btn highscore-btn">High Score</button>
-    </footer>
+      <p>How to play:<br/>
+        Press any key to flip player. <br/>Avoid all obstacles to reach the highest score.
+      </p>
     </div>
   </div>`;
 var gameSection = document.createElement('section');
@@ -59,6 +62,8 @@ function createStartScreen () {
   highscoreBtn = document.querySelector('.highscore-btn');
   playBtn.addEventListener('click',changeToGame);
   highscoreBtn.addEventListener('click',createHighScoreScreen);
+  currentHighest = localStorage.getItem("highestScore");
+  document.getElementById('highest').innerHTML = currentHighest;
 }
 
 //createStartScreen();
@@ -92,7 +97,6 @@ function createGameoverScreen () {
   playBtn = document.querySelector('.play-btn');
   goToStartBtn = document.querySelector('.back-to-start-btn');
   highscoreBtn = document.querySelector('.highscore-btn');
-
   playBtn.addEventListener('click',changeToGame);
   goToStartBtn.addEventListener('click',changeToStart);
   highscoreBtn.addEventListener('click',createHighScoreScreen);

@@ -11,6 +11,7 @@ body{
   padding: 0;
   font-family: 'VT323', monospace;
   color: #fff;
+  text-transform: uppercase;
 }
 button{
   color: #000;
@@ -21,8 +22,8 @@ button{
   transition: all .5s;
 }
 
-.start-screen-wrapper .play-btn:after,
-.start-screen-wrapper .play-btn:before{
+.start-screen-wrapper .play-btn-dev:after,
+.start-screen-wrapper .play-btn-dev:before{
   content: '';
   position: absolute;
   width: 100%;
@@ -30,7 +31,7 @@ button{
   box-sizing: content-box;
 }
 
-.start-screen-wrapper .play-btn{
+.start-screen-wrapper .play-btn-dev{
   background: #92CD41;
   display: inline-block;
   position: relative;
@@ -42,17 +43,23 @@ button{
   box-shadow: inset -3px -3px 0px 0px #4AA52E;
   margin:50px 0;
 }
-.start-screen-wrapper .play-btn:before {
+.start-screen-wrapper .play-btn-dev:before {
   top: -6px;
   left: 0;
   border-top: 6px black solid;
   border-bottom: 6px black solid;
 }
-.start-screen-wrapper .play-btn:after {
+.start-screen-wrapper .play-btn-dev:after {
   left: -6px;
     top: 0;
     border-left: 6px black solid;
     border-right: 6px black solid;
+}
+.start-screen-wrapper .btn{
+  background:transparent;
+  color: #000;
+  border:none;
+  font-size: 18px;
 }
 button:hover{
   opacity: 0.7;
@@ -62,10 +69,7 @@ button:active,button:focus{
   outline: none;
   border:none;
 }
-.start-screen-wrapper .play-btn:hover{
-  box-shadow: inset -60px -60px 0px 0px #4AA52E;
-  color: #000;
-}
+
 .container{
   
 }
@@ -127,12 +131,26 @@ button:active,button:focus{
 }
 .start-screen-wrapper h1{
   font-size: 40px;
+  text-transform: uppercase;
+  text-shadow:
+  color: #e0eff2;
+  text-shadow: -2px 3px 0 #000, 0px 6px 0 #000;    
+  margin-bottom:0px;
+}
+.start-screen-wrapper h2{
+  margin-bottom: 20px;
+}
+.start-screen-wrapper p{
+    width: 200px;
+    text-align: center;
+    margin-top: 20px;
 }
 #game-over-section h1{
   margin-top: 50px;
 }
+
 .start-screen-wrapper{
-  background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+  background: linear-gradient(-45deg, #ff9839, #fd555b, #E73C7E, #02add9, #54db40, #fee819);
   background-size: 400% 400%;
 	-webkit-animation: Gradient 15s ease infinite;
 	-moz-animation: Gradient 15s ease infinite;
@@ -262,13 +280,17 @@ button:active,button:focus{
 #game-over-section .content-wrapper{
   justify-content: space-between;
 }
-.game-over-footer,.start-screen-footer, .high-score-footer {
+.game-over-footer, .high-score-footer {
   text-align: center;
   background: #000;
   width: 100%;
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
+}
+.start-screen-footer{
+  padding-left: 10px;
+  margin-top: 10px;
 }
 .game-over-footer .btn, .high-score-footer .btn{
   color: #fff;
