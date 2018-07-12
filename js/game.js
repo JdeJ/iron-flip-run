@@ -116,9 +116,7 @@ Game.prototype._removeObstacle = function () {
 Game.prototype._obstacleCollidesWithPlayer = function(){
   
   this.obstaclesArr.forEach(function(obstacle){
-    console.log("o " + obstacle.positionX, "p " + this.player.playerPositionX+30);
     if(obstacle.positionX < this.player.playerPositionX+30 && obstacle.positionX > this.player.playerPositionX && obstacle.positionY === this.player.playerPositionY){
-      console.log("COLISION");
       this.collitionDetected = true;
     }
   }.bind(this));
@@ -161,7 +159,7 @@ Game.prototype._checkBreakPoints = function () {
       this.background._clearStrobe();
       clearInterval(this.speedInterval);
       this.speedInterval = setInterval(function(){
-        this._changeSpeed(15);
+        this._changeSpeed(13);
       }.bind(this),100);
       break;
     default:
@@ -200,7 +198,7 @@ Game.prototype._doFrame = function () {
   this._checkBreakPoints();
   this.player.score._run();
   if(this.collitionDetected){
-    //this._destroyPlayer()
+    //this.playerDivide();
     this.stop();
     gameOver();
   }
@@ -226,4 +224,56 @@ Game.prototype.setInRotation = function () {
 }
 Game.prototype.crazyMovement = function () {
   setTimeout(this.setInRotation,5000);
+}
+
+Game.prototype.playerDivide = function () {
+  this.background._draw();
+  this._drawBackground();
+  if(this.playerPositionY === "over"){
+    
+    this.ctx.fillStyle = '#000';
+    this.ctx.fillRect(this.player.playerPositionX+30,this.canvas.height/2-35,2,1);
+    this.ctx.fillRect(this.player.playerPositionX+30+28,this.canvas.height/2-35,2,1)
+    this.ctx.rect(this.player.playerPositionX+30+16,this.canvas.height/2-39,2,2);
+    
+    this.ctx.fillRect(this.player.playerPositionX+30+1,this.canvas.height/2-39,13,13);
+    this.ctx.fillRect(this.player.playerPositionX+30+16,this.canvas.height/2-39,13,13);
+    
+    ctx.beginPath();
+    this.ctx.strokeStyle = "#000";
+    this.ctx.rect(this.player.playerPositionX+30+1,this.canvas.height/2-39,13,13);
+    this.ctx.rect(this.player.playerPositionX+30+16,this.canvas.height/2-39,13,13)
+    ctx.stroke();
+  
+    this.ctx.fillStyle = '#fff';
+    this.ctx.fillRect(this.player.playerPositionX+30+2,this.canvas.height/2-38,11,11);
+    this.ctx.fillRect(this.player.playerPositionX+30+17,this.canvas.height/2-38,11,11)
+    this.ctx.fillStyle = "#000";
+    this.ctx.fillRect(this.player.playerPositionX+30+6,this.canvas.height/2-34,3,3);
+    this.ctx.fillRect(this.player.playerPositionX+30+21,this.canvas.height/2-34,3,3);
+  }
+  else{
+    this.ctx.fillStyle = '#000';
+    this.ctx.fillRect(this.player.playerPositionX+30,this.canvas.height/2+35,2,1);
+    this.ctx.fillRect(this.player.playerPositionX+30+28,this.canvas.height/2+35,2,1)
+    this.ctx.rect(this.player.playerPositionX+30+16,this.canvas.height/2+39,2,2);
+    
+    this.ctx.fillRect(this.player.playerPositionX+30+1,this.canvas.height/2+29,13,13);
+    this.ctx.fillRect(this.player.playerPositionX+30+16,this.canvas.height/2+29,13,13);
+    
+    this.ctx.fillStyle = '#fff';
+    this.ctx.fillRect(this.player.playerPositionX+30+2,this.canvas.height/2+30,11,11);
+    this.ctx.fillRect(this.player.playerPositionX+30+17,this.canvas.height/2+30,11,11);
+
+    ctx.beginPath();
+    this.ctx.strokeStyle = "#000";
+    this.ctx.rect(this.player.playerPositionX+30+1,this.canvas.height/2+29,13,13);
+    this.ctx.rect(this.player.playerPositionX+30+16,this.canvas.height/2+29,13,13)
+    ctx.stroke();
+
+      
+    this.ctx.fillStyle = "#000";
+    this.ctx.fillRect(this.player.playerPositionX+30+6,this.canvas.height/2+34,3,3);
+    this.ctx.fillRect(this.player.playerPositionX+30+21,this.canvas.height/2+34,3,3);
+  }
 }
