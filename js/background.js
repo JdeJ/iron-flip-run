@@ -22,9 +22,6 @@ Background.prototype._draw = function () {
 
 Background.prototype.getRandomImage = function () {
   var randomNum = Math.floor(Math.random() * this.backgroundChoices.length);
-  if(this.bgImage.src === this.backgroundChoices[randomNum]){
-    this.getRandomImage();
-  }
   return this.backgroundChoices[randomNum];
 }
 
@@ -44,5 +41,4 @@ Background.prototype._clearStrobe = function () {
     clearInterval(this.strobeInterval)
     this.strobeInterval = undefined;
   }
-  console.log(this.strobeInterval);
 }

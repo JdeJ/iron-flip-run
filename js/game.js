@@ -44,7 +44,6 @@ Game.prototype._controlFlip = function () {
 }
 
 Game.prototype._drawObstacles = function () {
-  this.ctx.globalAlpha = 1;
   this.obstaclesArr.forEach(function(obstacle){
     obstacle.draw(obstacle);
     this._obstacleCollidesWithPlayer(obstacle,this.player);
@@ -135,24 +134,33 @@ Game.prototype._compareScore = function () {
     }
   }
 }
+Game.prototype._changeSpeed = function () {
 
+}
 Game.prototype._checkBreakPoints = function () {
   switch (this.player.score.score) {
-    case 1155:
+    case 1154:
       this.background._change();
       break;
+    case 1156:
+     this.background._change();
+     break;
     case 1723:
       this.background._strobe();
       break;
     case 1730:
+      this._changeSpeed();
+      break;
     case 2053:
       this.background._clearStrobe();
+      break;
     default:
       break;
   }
 }
 
 Game.prototype.stop = function () {
+  document.getElementsByTagName('body')[0].style.cursor = 'default';
   this.gameOverAudio._play();
   this.gameAudio._stop();
   this.background._clearStrobe();
@@ -189,6 +197,7 @@ Game.prototype._doFrame = function () {
 }
 
 Game.prototype.init = function () {
+  document.getElementsByTagName('body')[0].style.cursor= 'none';
   this.gameAudio._play();
   this._createObstaclesInterval();
   this.crazyMovement();
