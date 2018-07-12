@@ -161,6 +161,16 @@ Game.prototype._checkBreakPoints = function () {
       this.background._clearStrobe();
       clearInterval(this.speedInterval);
       this.speedInterval = setInterval(function(){
+        this._changeSpeed(12);
+      }.bind(this),100);
+      break;
+      case 2300:
+      this.canvas.classList.remove('incline');
+      this.incline();
+      break;
+      case 2800:
+      clearInterval(this.speedInterval);
+      this.speedInterval = setInterval(function(){
         this._changeSpeed(13);
       }.bind(this),100);
       break;
@@ -175,6 +185,7 @@ Game.prototype.stop = function () {
   this.gameAudio._stop();
   this.background._clearStrobe();
   this.canvas.classList.remove('rotate-crazy');
+  this.canvas.classList.remove('incline');
   this.highScoreMessage.classList.remove('active');
   this.highScoreMessage.innerHTML = "";
   if (this.obstacleInterval) {
