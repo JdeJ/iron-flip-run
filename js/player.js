@@ -6,10 +6,12 @@ function Player(canvas,ctx){
   this.playerPositionX = 200;
   this.alpha = 1;
   this.intervalFade = undefined;
+  this.playerSound = new Sound("./audio/blip.wav");
   this.score = new Score();
 }
 
 Player.prototype.flip = function () {
+  this.playerSound._play();
   if(this.playerPositionY === "over"){
     this.playerPositionY = "under";
   }
