@@ -33,7 +33,7 @@ gameOverSection.innerHTML = `<div class="content-wrapper">
   <footer class="game-over-footer">
     <button class="btn play-btn">Play again</button>
     <button class="btn back-to-start-btn">Go to start</button>
-    <button class="btn highscore-btn">High Score</button>
+    <button class="btn highscore-btn">High Score: <span id="highest"></span></button>
   </footer>
 </div>`;
 var highscoreSection = document.createElement('section');
@@ -100,6 +100,8 @@ function createGameoverScreen () {
   playBtn.addEventListener('click',changeToGame);
   goToStartBtn.addEventListener('click',changeToStart);
   highscoreBtn.addEventListener('click',createHighScoreScreen);
+  currentHighest = localStorage.getItem("highestScore");
+  document.getElementById('highest').innerHTML = currentHighest;
 }
 
 function createHighScoreScreen(){
