@@ -82,7 +82,7 @@ button:active,button:focus{
 #overlay-triangle-up {
   width: 0;
   height: 0;
-  border-left: 701px solid transparent;
+  border-left: 702px solid transparent;
   border-right: 0 solid transparent;
   border-bottom: 350px solid #000;
   transition: .8s ease-in-out;
@@ -92,13 +92,12 @@ button:active,button:focus{
   right: 0;
   opacity: 1;
 }
-
 #overlay-triangle-down {
   opacity: 1;
   width: 0;
   height: 0;
   border-left: 0 solid transparent;
-  border-right: 701px solid transparent;
+  border-right: 702px solid transparent;
   border-top: 350px solid #000;
   transition: .8s ease-in-out;
   float: left;
@@ -296,9 +295,10 @@ button:active,button:focus{
 }
 #game-board.rotate-crazy{
   -webkit-animation: rotation-fw-bw-fw-bw 10s linear;
-
 }
-
+#game-board.incline{
+  -webkit-animation: incline 5s linear;
+}
 
 @-webkit-keyframes Gradient {
 	0% {
@@ -409,9 +409,68 @@ button:active,button:focus{
       -webkit-transform: rotate(0deg);
   }
 }
-@-webkit-keyframes rotation-bw {
+@-moz-keyframes rotation-fw-bw-fw-bw {
   0% {
-      -webkit-transform: rotate(100deg);
+      -moz-transform: rotate(0deg);
+  }
+  15%{
+      -moz-transform: rotate(35deg);
+  }
+  20%{
+    -moz-transform: rotate(35deg);
+  }
+  24%{
+    -moz-transform: rotate(35deg);
+  }
+  40%{
+    -moz-transform: rotate(35deg);
+  }
+  50%{
+    -moz-transform: rotate(20deg);
+  }
+  80%{
+    -moz-transform: rotate(20deg);
+  }
+  100% {
+      -moz-transform: rotate(0deg);
+  }
+}
+@keyframes rotation-fw-bw-fw-bw {
+  0% {
+      transform: rotate(0deg);
+  }
+  15%{
+      transform: rotate(35deg);
+  }
+  20%{
+    transform: rotate(35deg);
+  }
+  24%{
+    transform: rotate(35deg);
+  }
+  40%{
+    transform: rotate(35deg);
+  }
+  50%{
+    transform: rotate(20deg);
+  }
+  80%{
+    transform: rotate(20deg);
+  }
+  100% {
+      transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes incline {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  20% {
+      -webkit-transform: rotate(-20deg);
+  }
+  30%{
+    -webkit-transform: rotate(-30deg);
   }
   100% {
       -webkit-transform: rotate(0deg);

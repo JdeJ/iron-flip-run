@@ -146,6 +146,8 @@ Game.prototype._checkBreakPoints = function () {
   switch (this.player.score.score) {
     case 1154:
       this.background._change();
+      this.canvas.classList.remove('rotate-crazy');
+      this.incline();
       break;
     case 1723:
       this.background._strobe();
@@ -198,7 +200,6 @@ Game.prototype._doFrame = function () {
   this._checkBreakPoints();
   this.player.score._run();
   if(this.collitionDetected){
-    //this.playerDivide();
     this.stop();
     gameOver();
   }
@@ -216,7 +217,6 @@ Game.prototype.init = function () {
   this._doFrame();
 }
 
-
 Game.prototype.setInRotation = function () {
   if(this.canvas){
     this.canvas.setAttribute('class','rotate-crazy');
@@ -226,54 +226,8 @@ Game.prototype.crazyMovement = function () {
   setTimeout(this.setInRotation,5000);
 }
 
-Game.prototype.playerDivide = function () {
-  this.background._draw();
-  this._drawBackground();
-  if(this.playerPositionY === "over"){
-    
-    this.ctx.fillStyle = '#000';
-    this.ctx.fillRect(this.player.playerPositionX+30,this.canvas.height/2-35,2,1);
-    this.ctx.fillRect(this.player.playerPositionX+30+28,this.canvas.height/2-35,2,1)
-    this.ctx.rect(this.player.playerPositionX+30+16,this.canvas.height/2-39,2,2);
-    
-    this.ctx.fillRect(this.player.playerPositionX+30+1,this.canvas.height/2-39,13,13);
-    this.ctx.fillRect(this.player.playerPositionX+30+16,this.canvas.height/2-39,13,13);
-    
-    ctx.beginPath();
-    this.ctx.strokeStyle = "#000";
-    this.ctx.rect(this.player.playerPositionX+30+1,this.canvas.height/2-39,13,13);
-    this.ctx.rect(this.player.playerPositionX+30+16,this.canvas.height/2-39,13,13)
-    ctx.stroke();
-  
-    this.ctx.fillStyle = '#fff';
-    this.ctx.fillRect(this.player.playerPositionX+30+2,this.canvas.height/2-38,11,11);
-    this.ctx.fillRect(this.player.playerPositionX+30+17,this.canvas.height/2-38,11,11)
-    this.ctx.fillStyle = "#000";
-    this.ctx.fillRect(this.player.playerPositionX+30+6,this.canvas.height/2-34,3,3);
-    this.ctx.fillRect(this.player.playerPositionX+30+21,this.canvas.height/2-34,3,3);
-  }
-  else{
-    this.ctx.fillStyle = '#000';
-    this.ctx.fillRect(this.player.playerPositionX+30,this.canvas.height/2+35,2,1);
-    this.ctx.fillRect(this.player.playerPositionX+30+28,this.canvas.height/2+35,2,1)
-    this.ctx.rect(this.player.playerPositionX+30+16,this.canvas.height/2+39,2,2);
-    
-    this.ctx.fillRect(this.player.playerPositionX+30+1,this.canvas.height/2+29,13,13);
-    this.ctx.fillRect(this.player.playerPositionX+30+16,this.canvas.height/2+29,13,13);
-    
-    this.ctx.fillStyle = '#fff';
-    this.ctx.fillRect(this.player.playerPositionX+30+2,this.canvas.height/2+30,11,11);
-    this.ctx.fillRect(this.player.playerPositionX+30+17,this.canvas.height/2+30,11,11);
-
-    ctx.beginPath();
-    this.ctx.strokeStyle = "#000";
-    this.ctx.rect(this.player.playerPositionX+30+1,this.canvas.height/2+29,13,13);
-    this.ctx.rect(this.player.playerPositionX+30+16,this.canvas.height/2+29,13,13)
-    ctx.stroke();
-
-      
-    this.ctx.fillStyle = "#000";
-    this.ctx.fillRect(this.player.playerPositionX+30+6,this.canvas.height/2+34,3,3);
-    this.ctx.fillRect(this.player.playerPositionX+30+21,this.canvas.height/2+34,3,3);
+Game.prototype.incline = function () {
+  if(this.canvas){
+    this.canvas.setAttribute('class','incline');
   }
 }
