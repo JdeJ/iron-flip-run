@@ -23,4 +23,5 @@ Score.prototype._saveScore = function (score) {
   this.playerScore.push({name: this.playerInitials, score: score});
  
   localStorage.setItem("playerScore", JSON.stringify(this.playerScore));
+  
 }

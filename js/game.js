@@ -13,9 +13,9 @@ function Game(options){
   this.obstacleInterval = undefined;
   this.obstacle = options.obstacle;
   this.collitionDetected = false;
-  this.obstacleIntervalNum = 350;
   this.highScore = undefined;
   this.highScoreMessage = document.querySelector('.high-score-message');
+  this.speedInterval = undefined;
   this.counter = {
     over: 0,
     under : 0,
@@ -46,7 +46,6 @@ Game.prototype._controlFlip = function () {
 Game.prototype._drawObstacles = function () {
   this.obstaclesArr.forEach(function(obstacle){
     obstacle.draw(obstacle);
-    this._obstacleCollidesWithPlayer(obstacle,this.player);
   }.bind(this));
 }
 
@@ -94,11 +93,11 @@ Game.prototype._setRandomPosition = function () {
 
 Game.prototype._moveObstacles = function () {
   this.obstaclesArr.forEach(function(obstacle){
-    obstacle.positionX-=obstacle.speed;
+    obstacle.positionX -= obstacle.speed;
   }.bind(this));
 }
 Game.prototype._createObstaclesInterval = function () {
-    this.obstacleInterval = setInterval(this._createObstacle.bind(this),this.obstacleIntervalNum);
+    this.obstacleInterval = setInterval(this._createObstacle.bind(this),350);
 }
 
 Game.prototype._createObstacle = function () {
@@ -108,16 +107,21 @@ Game.prototype._createObstacle = function () {
 
 Game.prototype._removeObstacle = function () {
   this.obstaclesArr.forEach(function(obstacle){
-    if(obstacle.positionX < 0){
+    if(obstacle.positionX < 75){
       this.obstaclesArr.shift();
     }
   }.bind(this));
 }
 
-Game.prototype._obstacleCollidesWithPlayer = function(obstacle,player){
-  if(obstacle.positionX === player.playerPositionX && obstacle.positionY === player.playerPositionY){    
-    this.collitionDetected = true;
-  }
+Game.prototype._obstacleCollidesWithPlayer = function(){
+  
+  this.obstaclesArr.forEach(function(obstacle){
+    console.log("o " + obstacle.positionX, "p " + this.player.playerPositionX+30);
+    if(obstacle.positionX < this.player.playerPositionX+30 && obstacle.positionX > this.player.playerPositionX && obstacle.positionY === this.player.playerPositionY){
+      console.log("COLISION");
+      this.collitionDetected = true;
+    }
+  }.bind(this));
 }
 
 Game.prototype._getHighScore = function () {
@@ -134,9 +138,12 @@ Game.prototype._compareScore = function () {
     }
   }
 }
-Game.prototype._changeSpeed = function () {
-
+Game.prototype._changeSpeed = function (speed) {
+  this.obstaclesArr.forEach(function(obstacle){
+    obstacle.speed = speed;
+  }.bind(this));
 }
+
 Game.prototype._checkBreakPoints = function () {
   switch (this.player.score.score) {
     case 1154:
@@ -145,8 +152,17 @@ Game.prototype._checkBreakPoints = function () {
     case 1723:
       this.background._strobe();
       break;
-    case 2053:
+      case 1850:
+        this.speedInterval = setInterval(function(){
+        this._changeSpeed(7);
+      }.bind(this),100);
+      break;
+       case 2053:
       this.background._clearStrobe();
+      clearInterval(this.speedInterval);
+      this.speedInterval = setInterval(function(){
+        this._changeSpeed(15);
+      }.bind(this),100);
       break;
     default:
       break;
@@ -170,12 +186,15 @@ Game.prototype.stop = function () {
 }
 
 Game.prototype._doFrame = function () {
+  if(this.obstaclesArr.length){
+    this._obstacleCollidesWithPlayer();
+  }
   this.background._draw();
   this._drawBackground();
   this.player._drawPlayer();
-  this._moveObstacles();
   this._drawObstacles();
   this._removeObstacle();
+  this._moveObstacles();
   this._controlFlip();
   this._compareScore();
   this._checkBreakPoints();

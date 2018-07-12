@@ -97,16 +97,3 @@ Player.prototype.playerDivide = function (alpha) {
   }
 }
 
-Player.prototype._destroyPlayer = function(){
-  if(this.player.alpha <= 0){
-    console.log('fade');
-    clearInterval(this.intervalFade);
-  }
-  else{
-    this.player.alpha -= 0.09;
-    this._drawBackground();
-    this._drawObstacles();
-    this.player.playerDivide(this.player.alpha);
-    this.player.intervalFade = window.requestAnimationFrame(this._destroyPlayer.bind(this));
-  }
-}
