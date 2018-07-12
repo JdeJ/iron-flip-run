@@ -4,7 +4,8 @@ function Game(options){
   this.columns = options.columns;
   this.ctx = options.ctx;
   this.bgColor = options.bgColor;
-  this.bgAudio = new Sound("./audio/sweinsteiger-1.mp3");
+  this.gameAudio = new Sound("./audio/scweinsteiger-game-mix-1.mp3");
+  this.gameOverAudio = new Sound("./audio/dead.mp3");
   this.margin = 100;
   this.player = new Player(this.canvas,this.ctx);
   this.background = new Background(this.ctx,this.canvas);
@@ -127,18 +128,34 @@ Game.prototype._getHighScore = function () {
 }
 
 Game.prototype._compareScore = function () {
-  if(this.highScore){
-    if(this.player.score.score > this.highScore){
-      this.highScoreMessage.innerHTML = "New High Score!!!";
-      if(!this.highScoreMessage.classList.contains('active')){
-        this.highScoreMessage.classList.add('active');
-      }
+  if(this.highScore && this.player.score.score > this.highScore){
+    this.highScoreMessage.innerHTML = "New High Score!!!";
+    if(!this.highScoreMessage.classList.contains('active')){
+      this.highScoreMessage.classList.add('active');
     }
   }
 }
 
+Game.prototype._checkBreakPoints = function () {
+  switch (this.player.score.score) {
+    case 1155:
+      this.background._change();
+      break;
+    case 1723:
+      this.background._strobe();
+      break;
+    case 1730:
+    case 2053:
+      this.background._clearStrobe();
+    default:
+      break;
+  }
+}
+
 Game.prototype.stop = function () {
-  this.bgAudio._stop();
+  this.gameOverAudio._play();
+  this.gameAudio._stop();
+  this.background._clearStrobe();
   this.canvas.classList.remove('rotate-crazy');
   this.highScoreMessage.classList.remove('active');
   this.highScoreMessage.innerHTML = "";
@@ -159,6 +176,7 @@ Game.prototype._doFrame = function () {
   this._removeObstacle();
   this._controlFlip();
   this._compareScore();
+  this._checkBreakPoints();
   this.player.score._run();
   if(this.collitionDetected){
     //this._destroyPlayer()
@@ -171,7 +189,7 @@ Game.prototype._doFrame = function () {
 }
 
 Game.prototype.init = function () {
-  this.bgAudio._play();
+  this.gameAudio._play();
   this._createObstaclesInterval();
   this.crazyMovement();
   this._getHighScore();

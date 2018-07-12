@@ -7,6 +7,7 @@ function Background(ctx,canvas){
   this.speed = 2;
   this.y = 0;
   this.x = 0;
+  this.strobeInterval = undefined;
 }
 
 Background.prototype._draw = function () {
@@ -21,6 +22,27 @@ Background.prototype._draw = function () {
 
 Background.prototype.getRandomImage = function () {
   var randomNum = Math.floor(Math.random() * this.backgroundChoices.length);
+  if(this.bgImage.src === this.backgroundChoices[randomNum]){
+    this.getRandomImage();
+  }
   return this.backgroundChoices[randomNum];
 }
 
+Background.prototype._change = function () {
+  this.bgImage.src = this.getRandomImage();
+  this._draw();
+}
+
+Background.prototype._strobe = function () {
+  if (!this.strobeInterval) {
+    this.strobeInterval = setInterval(this._change.bind(this),100);
+  }
+}
+
+Background.prototype._clearStrobe = function () {
+  if (this.strobeInterval) {
+    clearInterval(this.strobeInterval)
+    this.strobeInterval = undefined;
+  }
+  console.log(this.strobeInterval);
+}
