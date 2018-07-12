@@ -1,3 +1,4 @@
+var body = document.getElementsByTagName('body')[0];
 var generalWrapper = document.getElementById('game-states');
 var overlay = document.querySelector('.overlay');
 var startSection = document.createElement('section');
@@ -50,6 +51,7 @@ var closeBtn = null;
 var canvas = null;
 var ctx = null;
 var game = null;
+var bgSound = null;
 
 function createStartScreen () {
   generalWrapper.prepend(startSection);
