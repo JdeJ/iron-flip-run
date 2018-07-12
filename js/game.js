@@ -142,14 +142,8 @@ Game.prototype._checkBreakPoints = function () {
     case 1154:
       this.background._change();
       break;
-    case 1156:
-     this.background._change();
-     break;
     case 1723:
       this.background._strobe();
-      break;
-    case 1730:
-      this._changeSpeed();
       break;
     case 2053:
       this.background._clearStrobe();
