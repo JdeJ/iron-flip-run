@@ -2,7 +2,7 @@ function Background(ctx,canvas){
   this.canvasWidth = canvas.width;
   this.ctx = ctx;
   this.bgImage = new Image();
-  this.backgroundChoices = ["./images/background-blue.png","./images/background-green.png","./images/background-yellow.png","./images/background-orange.png","./images/background-fux.png","./images/background-red.png"];
+  this.backgroundChoices = ["./images/low/background-blue.png","./images/low/background-green.png","./images/low/background-yellow.png","./images/low/background-orange.png","./images/low/background-fux.png","./images/low/background-red.png"];
   this.bgImage.src = this.getRandomImage();
   this.speed = 2;
   this.y = 0;
